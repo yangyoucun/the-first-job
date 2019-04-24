@@ -239,6 +239,7 @@ public class SearchManagement extends JFrame implements ActionListener {
  
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		//查询个人
 		if(e.getSource() == searchBtn) {
 				int num = Integer.parseInt(JTNumber.getText());
 				if(num >0) 
@@ -246,15 +247,19 @@ public class SearchManagement extends JFrame implements ActionListener {
 				else
 					JOptionPane.showMessageDialog(null, "输入数据错误！");
 		}
+		
+		//查询全部
 		if(e.getSource() == searchAllBtn) {
 			JTNumber.setText("0");
 			setTable(0);
 		}
 		
+		//重置
 		if(e.getSource() == nextBtn) {
 			JTNumber.setText(null);
 		}
 		
+		//取消
 		if(e.getSource() == cancelBtn) {
 			this.setVisible(false);
 		}

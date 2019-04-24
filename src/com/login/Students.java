@@ -13,7 +13,6 @@ public class Students {
 	public Students() {
 		super();
 	}
-	
 	public Integer getId() {
 		return id;
 	}
