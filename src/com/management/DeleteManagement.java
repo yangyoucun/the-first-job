@@ -75,6 +75,8 @@ public class DeleteManagement extends JFrame implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		//确定
 		if(e.getSource() == ensureBtn) {
 			
 			Integer snumber = Integer.parseInt(JTNumber.getText());
@@ -105,11 +107,13 @@ public class DeleteManagement extends JFrame implements ActionListener {
 			}
 		}
 		
+		//重置
 		if(e.getSource() == nextBtn) {
 			JTNumber.setText(null);
 			JTName .setText(null);
 		}
 		
+		//取消
 		if(e.getSource() == cancelBtn) {
 			setVisible(false);
 		}
