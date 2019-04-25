@@ -137,19 +137,19 @@ public class AddManagement extends JFrame implements ActionListener {
 			try {
 				Statement stm = DBConnection.getCon().createStatement();
 				ResultSet rs = stm.executeQuery(sql);
-				if(rs.next()) {
+				if(rs.next()){
 					JOptionPane.showMessageDialog(null, "该账号已存在！", "提示信息", JOptionPane.WARNING_MESSAGE);
 				}
-				else {
+				else{
 					//插入一条记录
 					sql = "insert into students values('"+snumber+"','"+sname+"','"+ssex+"','"+sbirth+"','"+sclass+"','"+sacademy+"','"+snumber+"')";
 					int i = stm.executeUpdate(sql);
-					if(i>0) {
+					if(i>0){
 						JOptionPane.showMessageDialog(null, "添加成功！", "提示信息", JOptionPane.INFORMATION_MESSAGE);
-					}else {
+					}
+					else {
 						JOptionPane.showMessageDialog(null, "添加失败！", "提示信息", JOptionPane.INFORMATION_MESSAGE);
 					}
-					
 				}
 				stm.close();
 				
