@@ -31,10 +31,9 @@ public class Login extends Frame implements ActionListener{
 	//创建下拉列表框对象
 	JComboBox<String> JC = new JComboBox<String>();
 	
-	public Login() {
+	public Login() {//登录面板
 		this.setTitle("管理系统示例1.0（增删改查）");
 		this.setLayout(null);
-		
 		this.setResizable(false);    //禁止改变窗口大小
  
 		//姓名
@@ -69,7 +68,7 @@ public class Login extends Frame implements ActionListener{
 		this.setSize(400, 250); //设置窗口的大小
 		this.setLocationRelativeTo(null);//窗体居中显示
 		
-		addWindowListener(new WindowAdapter() {
+		addWindowListener(new WindowAdapter() {//窗口监听
 			@Override
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
@@ -81,8 +80,7 @@ public class Login extends Frame implements ActionListener{
  
 	//身份验证
 	private boolean logindb(String password, String sql) {
-		//查询数据库
-		ResultSet rs = null;
+		ResultSet rs = null;//初始化
  
 		//验证用户名是否存在
 		try {
@@ -111,13 +109,13 @@ public class Login extends Frame implements ActionListener{
 			
 			//将文本框中包含的文本传给字符串name
 			String name = JTUserName.getText();
-			String password = new String(JTUserPaw.getPassword());
-			
+			String password = new String(temp);
+			temp = JTUserPaw.getPassword();
 			//将当前所选项传给字符串box
 			String box = (String)JC.getSelectedItem();
 			String loginsql = null;
 			
-			if(box.equals("学生")) {
+			if(box.equals("学生")) {//学生登录
 				loginsql ="select password from students where name ='"+name+"'";
 				
 				//登录成功后进入，否则返回提示信息
@@ -125,7 +123,8 @@ public class Login extends Frame implements ActionListener{
 					this.setVisible(false);
 					new StudentManagement();
 					System.out.println("学生登录成功！");
-				}else {
+				}
+                        else {
 					flag++;
 					if(flag >= 3) {
 						JOptionPane.showMessageDialog(this, "输入三次错误，退出登录！","提示信息",JOptionPane.WARNING_MESSAGE);
@@ -136,8 +135,7 @@ public class Login extends Frame implements ActionListener{
 				}
 					
 			}
-			else if(box.equals("教师")) 
-			{
+			else if(box.equals("教师")) {//教师登录
 				loginsql ="select password from students where name ='"+name+"'";
 				if(logindb(password,loginsql))
 					System.out.println("教师登录成功！");

@@ -13,36 +13,42 @@ public class Students {
 	public Students() {
 		super();
 	}
+	//id
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	//name
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
+	//sex
 	public String getSex() {
 		return sex;
 	}
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
+	//birthday
 	public String getBirthday() {
 		return birthday;
 	}
 	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
+	//class
 	public String getClasses() {
 		return classes;
 	}
 	public void setClasses(String classes) {
 		this.classes = classes;
 	}
+	//academy
 	public String getAcademy() {
 		return academy;
 	}
@@ -50,7 +56,7 @@ public class Students {
 		this.academy = academy;
 	}
 	
-	
+	//math
 	public float getMath() {
 		return math;
 	}
@@ -58,7 +64,7 @@ public class Students {
 	public void setMath(float math) {
 		this.math = math;
 	}
- 
+ 	//chinese
 	public float getChniese() {
 		return chniese;
 	}
@@ -68,6 +74,7 @@ public class Students {
 	}
  
 	@Override
+	//Êä³ö
 	public String toString() {
 		
 		return id+"  "+name+"  "+sex;

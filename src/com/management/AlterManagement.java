@@ -141,22 +141,26 @@ public class AlterManagement extends JFrame implements ActionListener {
 			try {
 				Statement stm = DBConnection.getCon().createStatement();
 				ResultSet rs = stm.executeQuery(sql);
-				if(rs.next()) {
+				if(rs.next()) 
+				{
 					//更新一条记录
 					sql = "update students set name ='"+sname+"',sex='"+ssex+"',birthday='"+sbirth+"',class='"+sclass+"',academy='"+sacademy+"'where id="+snumber;
 					int i = stm.executeUpdate(sql);
 					if(i>0) {
 						JOptionPane.showMessageDialog(null, "修改成功！", "提示信息", JOptionPane.INFORMATION_MESSAGE);
-					}else {
+					}
+					else {
 						JOptionPane.showMessageDialog(null, "修改失败！", "提示信息", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
-				else {
+				else 
+				{
 					JOptionPane.showMessageDialog(null, "该账号不存在！", "提示信息", JOptionPane.WARNING_MESSAGE);
 					
 				}
 				stm.close();
-			} catch (SQLException e1) {
+			} 
+			catch (SQLException e1) {
 				e1.printStackTrace();
 			}
 			
