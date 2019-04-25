@@ -10,21 +10,23 @@ import javax.swing.*;
  
 public class StudentManagement extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
+	//创建菜单栏对象
+	JMenuBar menubar = new JMenuBar(); 
 	
-	JMenuBar menubar = new JMenuBar(); //创建菜单栏对象
-	//一级菜单
-	JMenu informationMenu = new JMenu("信息");		
-	JMenu searchMenu = new JMenu("查询");	
-	JMenu otherMenu = new JMenu("其他");	
+	//创建一级菜单
+	JMenu informationMenu = new JMenu("信息");//信息		
+	JMenu searchMenu = new JMenu("查询");	//查询
+	JMenu otherMenu = new JMenu("其他");	//其他
 	
-	JMenuItem addMenu = new JMenuItem("增加信息");
-	JMenuItem deleteMenu = new JMenuItem("删除信息");
-	JMenuItem alterMenu = new JMenuItem("修改信息");
+	JMenuItem addMenu = new JMenuItem("增加信息");//增加信息
+	JMenuItem deleteMenu = new JMenuItem("删除信息");//删除信息
+	JMenuItem alterMenu = new JMenuItem("修改信息");//修改信息
 	
-	JMenuItem searchInforMenu = new JMenuItem("信息查询");
-	JMenuItem searchGradeMenu = new JMenuItem("成绩查询");
+	JMenuItem searchInforMenu = new JMenuItem("信息查询");//信息查询
+	JMenuItem searchGradeMenu = new JMenuItem("成绩查询");//成绩查询
 	
-	JMenuItem quitMenu = new JMenuItem("退出");
+	JMenuItem quitMenu = new JMenuItem("退出");//退出
+	
 	JLabel label = new JLabel();
 	
 	
@@ -34,6 +36,7 @@ public class StudentManagement extends JFrame implements ActionListener{
 		this.setJMenuBar(menubar);	//将菜单栏组件添加到容器
 		this.setResizable(false);	//设置窗口大小不可变
 		//this.setUndecorated(true);   //设置frame边框不可见
+		
 		//一级菜单添加到菜单栏及事件监听
 		menubar.add(informationMenu);
 		menubar.add(searchMenu);
@@ -44,19 +47,19 @@ public class StudentManagement extends JFrame implements ActionListener{
 		
 		
 		//二级菜单添加及事件监听
-		informationMenu.add(addMenu);
-		informationMenu.add(deleteMenu);
-		informationMenu.add(alterMenu);
+		informationMenu.add(addMenu);//增加信息
+		informationMenu.add(deleteMenu);//删除信息
+		informationMenu.add(alterMenu);//修改信息
 		addMenu.addActionListener(this);
 		deleteMenu.addActionListener(this);
 		alterMenu.addActionListener(this);
 		
-		searchMenu.add(searchInforMenu);
-		searchMenu.add(searchGradeMenu);
+		searchMenu.add(searchInforMenu);//信息查询
+		searchMenu.add(searchGradeMenu);//成绩查询
 		searchInforMenu.addActionListener(this);
 		searchGradeMenu.addActionListener(this);
 		
-		otherMenu.add(quitMenu);
+		otherMenu.add(quitMenu);//其他
 		quitMenu.addActionListener(this);
 		
 		label.setIcon(new ImageIcon("images/主界面.jpg"));
@@ -69,8 +72,7 @@ public class StudentManagement extends JFrame implements ActionListener{
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				System.exit(0);
-				
+				System.exit(0);	
 			}
 		});
 		
@@ -86,20 +88,23 @@ public class StudentManagement extends JFrame implements ActionListener{
 		if(e.getSource() == addMenu) {
 			new AddManagement();
 		}
+		
 		//删除信息
 		if(e.getSource() == deleteMenu) {
 			new DeleteManagement();
 		}
+		
 		//修改信息
 		if(e.getSource() == alterMenu) {
 			new AlterManagement();
 		}
-		//查询基本信息
+		
+		//信息查询
 		if(e.getSource() == searchInforMenu) {
 			new SearchManagement();
 		}
 		
-		//查询成绩
+		//成绩查询
 		if(e.getSource() == searchGradeMenu) {
 			new SearchGrade();
 		}

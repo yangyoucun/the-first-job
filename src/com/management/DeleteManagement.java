@@ -22,17 +22,17 @@ import com.database.DBConnection;
  *
  */
 public class DeleteManagement extends JFrame implements ActionListener {
- 
 	private static final long serialVersionUID = 1L;
  
 	JLabel label = new JLabel("删除信息",JLabel.CENTER);
 	
+	//学号输入框
 	JLabel JLNumber = new JLabel("学号");
 	JTextField JTNumber = new JTextField();
-	
+	//姓名输入框
 	JLabel JLName = new JLabel("姓名");
 	JTextField JTName = new JTextField();
-	
+	//按钮选项
 	JButton ensureBtn = new JButton("确定");
 	JButton nextBtn = new JButton("重置");
 	JButton cancelBtn = new JButton("取消");
@@ -40,10 +40,11 @@ public class DeleteManagement extends JFrame implements ActionListener {
 	public DeleteManagement() {
 		this.setTitle("删除信息");
 		this.setLayout(null);
-		label.setBackground(Color.red);  //label前景色为红色
-		label.setFont(new Font("宋体", Font.HANGING_BASELINE, 19));
-		label.setBounds(170, 20, 100, 20);
+		label.setBackground(Color.red);  //设置label前景色为红色
+		label.setFont(new Font("宋体", Font.HANGING_BASELINE, 19));//设置label的字体与字号
+		label.setBounds(170, 20, 100, 20);//设置label的大小
 		this.add(label);
+		
 		//学号
 		JLNumber.setBounds(120, 60, 30, 25);
 		JTNumber.setBounds(150, 60, 120, 25);
@@ -56,10 +57,11 @@ public class DeleteManagement extends JFrame implements ActionListener {
 		this.add(JLName);
 		this.add(JTName);
 		
-		
+		//按钮选项
 		ensureBtn.setBounds(100, 320, 60, 25);
 		nextBtn.setBounds(170, 320, 60, 25);
 		cancelBtn.setBounds(240, 320, 60, 25);
+		
 		//添加事件监听
 		ensureBtn.addActionListener(this);
 		nextBtn.addActionListener(this);
@@ -73,36 +75,44 @@ public class DeleteManagement extends JFrame implements ActionListener {
 		this.setLocationRelativeTo(null);//窗体居中显示
 	}
 	
-	@Override
+	
 	public void actionPerformed(ActionEvent e) {
 		
 		//确定
-		if(e.getSource() == ensureBtn) {
-			
+		if(e.getSource() == ensureBtn){
 			Integer snumber = Integer.parseInt(JTNumber.getText());
 			
 			//检索学生
 			String sql = "select * from students where id='"+snumber+"'";
+			
 			//打开数据库连接并创建Statement对象
 			try {
 				Statement stm = DBConnection.getCon().createStatement();
 				ResultSet rs = stm.executeQuery(sql);
+				
 				if(rs.next()) {
 					//删除一条记录
 					sql = "delete from students where id ='"+snumber+"'";
 					int i = stm.executeUpdate(sql);
+					
 					if(i>0) {
 						JOptionPane.showMessageDialog(null, "删除成功！", "提示信息", JOptionPane.INFORMATION_MESSAGE);
-					}else {
+					}
+					
+					else {
 						JOptionPane.showMessageDialog(null, "删除失败！", "提示信息", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
+				
 				else {
 					JOptionPane.showMessageDialog(null, "该账号不存在！", "提示信息", JOptionPane.WARNING_MESSAGE);					
 				}
+				
 				stm.close();
 				
-			} catch (SQLException e1) {
+			} 
+			
+			catch (SQLException e1) {
 				e1.printStackTrace();
 			}
 		}

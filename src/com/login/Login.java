@@ -109,6 +109,7 @@ public class Login extends Frame implements ActionListener{
 			
 			//将文本框中包含的文本传给字符串name
 			String name = JTUserName.getText();
+			char[] temp = null;
 			String password = new String(temp);
 			temp = JTUserPaw.getPassword();
 			//将当前所选项传给字符串box
