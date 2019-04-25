@@ -116,6 +116,7 @@ public class AddManagement extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		//添加
 		if(e.getSource() == addBtn) {
 			
 			Integer snumber = Integer.parseInt(JTNumber.getText());
@@ -129,6 +130,7 @@ public class AddManagement extends JFrame implements ActionListener {
 			if(radioBtn01.isSelected()) {
 				ssex = "男";
 			}
+			
 			//检索学生
 			String sql = "select * from students where id='"+snumber+"'";
 			//打开数据库连接并创建Statement对象
@@ -157,6 +159,7 @@ public class AddManagement extends JFrame implements ActionListener {
 			
 		}
 		
+		//重置
 		if(e.getSource() == readdBtn) {
 			JTNumber.setText(null);
 			JTName .setText(null);
@@ -165,6 +168,7 @@ public class AddManagement extends JFrame implements ActionListener {
 			JTBirth.setText(null);
 		}
 		
+		//取消
 		if(e.getSource() == cancelBtn) {
 			setVisible(false);
 		}
