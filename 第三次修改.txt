@@ -1,4 +1,9 @@
+作业2：
 1、源文件编码格式为UTF-8；
 2、简单审查了其中的部分代码，并按照规范做修正；
 3、对源代码中的一些部分进行注释；
 3、对SearchManagement.java中的代码做了部分修改，对其做了完善。
+
+作业3：
+要求按照“Java代码审查.doc”中第二部分“java代码审查检查表”逐条检查源代码，并且参考《Google Java编程风格指南》中的具体规则。
+小组成员分工逐条审查，我主要负责的部分是SearchGrade.java和SearchManagement.java。

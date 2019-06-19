@@ -1,141 +1,145 @@
+/**
+ * qichen206102057进行代码审查
+ */
 package com.management;
- 
+//package 语句不换行，列限制并不适用于 package 语句
+
+//import语句不要使用通配符,不要换行
+//import语句可分为以下几组，按照这个顺序，每组由一个空行分隔
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.sql.*;
+
 import java.util.ArrayList;
 import java.util.List;
- 
+
 import javax.swing.*;
- 
+
 import com.database.DBConnection;
 import com.login.Students;
- 
- 
+
+
 public class SearchManagement extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
-	
+
 	private Object [][]rowData;
 	private Object []column = {"学号","姓名","性别","生日","班级","学院"};  //表头
-	
+
 	JPanel epanel = new JPanel();
 	JPanel spanel = new JPanel();
 	JPanel wpanel = new JPanel();
-	
+
 	JLabel JLNumber = new JLabel("学号");
 	JTextField JTNumber = new JTextField(16);
-	
+
 	JButton searchBtn = new JButton("查询个人");
 	JButton searchAllBtn = new JButton("查询全部");
 	JButton nextBtn = new JButton("重置");
 	JButton cancelBtn = new JButton("取消");
-		
-	
-	public SearchManagement() {
-	
+
+
+	public SearchManagement(){
+
 		this.setTitle("查询信息");
 		this.setLayout(new BorderLayout());
+
 		//标签和输入框
 		wpanel.add(searchAllBtn);
 		wpanel.add(JLNumber);
 		wpanel.add(JTNumber);
-		
+
 		//三个按钮添加事件
 		searchAllBtn.addActionListener(this);
 		searchBtn.addActionListener(this);
 		nextBtn.addActionListener(this);
 		cancelBtn.addActionListener(this);
-		
-		
+
+
 		epanel.add(searchBtn);
 		epanel.add(nextBtn);
 		epanel.add(cancelBtn);
-			
-		
+
+
 		this.add(epanel, BorderLayout.EAST);
 		this.add(wpanel, BorderLayout.WEST);
-		
+
 		this.pack();
-		this.setLocationRelativeTo(null);//窗体居中显示
+		this.setLocationRelativeTo(null);  //窗体居中显示
 		this.setVisible(true);
 	}
-	
+
 	/**
 	 * 设置表格的样式
 	 * @param num
 	 */
-	public void setTable(int num) {
-		
+	public void setTable(int num){
 		this.setVisible(false);
-		
+
 		JFrame jf =new JFrame("查询结果");
 		jf.setLocationRelativeTo(null);
 		JPanel panel = new JPanel();
-		
+
 		//表格所有行
 		Object [][]rowData = queryData(num);
-		
+
 		JTable table = new JTable(rowData,column);
+
 		//设置表格内容颜色
-		table.setForeground(Color.BLACK);	//字体颜色
+		table.setForeground(Color.BLACK);	            //字体颜色
 		table.setFont(new Font(null, Font.PLAIN, 14));	//字体样式
 		table.setSelectionBackground(Color.DARK_GRAY);	//选中后字体背景
 		table.setSelectionForeground(Color.LIGHT_GRAY);	//选中后字体颜色
-		table.setGridColor(Color.GRAY);	//网格颜色
- 
+		table.setGridColor(Color.GRAY);	                //网格颜色
+
 		//设置表头
-		//设置表头字体样式
-		table.getTableHeader().setFont(new Font(null, Font.BOLD, 14));
-		//表头名称字体颜色
-		table.getTableHeader().setForeground(Color.RED);
-		//不允许手动改变列宽
-		table.getTableHeader().setResizingAllowed(false);
-		//不允许拖动重新排列各列
-		table.getTableHeader().setReorderingAllowed(false);
- 
-		//设置行高30
-		table.setRowHeight(30);
-		//列宽设置为100
-		table.getColumnModel().getColumn(0).setPreferredWidth(80);
-		table.getColumnModel().getColumn(5).setPreferredWidth(180);
- 
-		//设置滚动面板视口大小
-		table.setPreferredScrollableViewportSize(new Dimension(550,400));
+		table.getTableHeader().setFont(new Font(null, Font.BOLD, 14));  //设置表头字体样式
+		table.getTableHeader().setForeground(Color.RED);                //表头名称字体颜色
+		table.getTableHeader().setResizingAllowed(false);               //不允许手动改变列宽
+		table.getTableHeader().setReorderingAllowed(false);             //不允许拖动重新排列各列
+
+
+		table.setRowHeight(30);                                       //设置行高30
+		table.getColumnModel().getColumn(0).setPreferredWidth(80);    //列宽设置为100
+		table.getColumnModel().getColumn(5).setPreferredWidth(180);   //列宽设置为180
+
+
+		table.setPreferredScrollableViewportSize(new Dimension(550,400));  //设置滚动面板视口大小
+
 		//把表格放到滚动面板中（自动添加到顶部）
 		JScrollPane scrollPane = new JScrollPane(table);
 		panel.add(scrollPane);
 		jf.add(panel);
-		
+
 		jf.pack();
 		jf.setContentPane(panel);
-		jf.setVisible(true);			
+		jf.setVisible(true);
 	}
-	
-	
+
+
 	/**
 	 * 查询所有用户数据
 	 * @return	查找到的数据生成的list集合
 	 */
 	public List<Students> queryAllUser(){
- 
+
 		Connection conn=null;
-		//预编译语句
-		PreparedStatement ps=null;
-		//结果集
-		ResultSet rs=null;
- 
+		PreparedStatement ps=null;  //预编译语句
+		ResultSet rs=null;          //结果集
+
 		String sql="select * from students";
 		List<Students> list=new ArrayList<Students>();
 		try {
 			conn=DBConnection.getCon();
+
 			//获取结果集
 			ps=conn.prepareStatement(sql);
 			rs=ps.executeQuery();
-			
+
 			while(rs.next()){
 				Students student=new Students();
 				student.setId(rs.getInt(1));
@@ -144,72 +148,73 @@ public class SearchManagement extends JFrame implements ActionListener {
 				student.setBirthday(rs.getString(4));
 				student.setClasses(rs.getString(5));
 				student.setAcademy(rs.getString(6));
- 
+
 				list.add(student);
 			}
 			conn.close();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return list;
 	}
- 
+
 	/**
 	 * 查询一个用户数据(用户id)
 	 * @return	查找到的用户数据返回
 	 */
 	public Students queryUser(Integer id){
- 
+
 		Connection conn=null;
-		//预编译语句
-		PreparedStatement ps=null;
-		//结果集
-		ResultSet rs=null;
- 
+		PreparedStatement ps=null;  //预编译语句
+		ResultSet rs=null;          //结果集
+
 		Students student = new Students();
 		String sql="select * from students where id="+id;
- 
+
 		try {
 			conn=DBConnection.getCon();
+
 			//获取结果集
 			ps=conn.prepareStatement(sql);
 			rs=ps.executeQuery();
-			
+
 			if(rs.next()){
-				
+
 					student.setId(rs.getInt(1));
 					student.setName(rs.getString(2));
 					student.setSex(rs.getString(3));
 					student.setBirthday(rs.getString(4));
 					student.setClasses(rs.getString(5));
 					student.setAcademy(rs.getString(6));
-				
-				
+
 			}
 			conn.close();
-			
-		} catch (SQLException e) {
+
+		} catch (SQLException e){
 			e.printStackTrace();
 		}
+
 		System.out.println(student.toString());
-		
+
 		return student;
 	}
- 
+
     /**
      * 生成表格数据
      * @return 表格数据二维数组
      */
     public Object[][] queryData(int num){
-		
-		if(num == 0) {
+
+		if(num == 0){
 			List<Students> list=queryAllUser();
 			rowData=new Object[list.size()][column.length];
 			System.out.println("查询全部信息");
+
 			for(int i=0;i<list.size();i++){
-				for(int j=0;j<column.length;j++) {
+
+				for(int j=0;j<column.length;j++){
 					rowData[i][0]=list.get(i).getId();
 					rowData[i][1]=list.get(i).getName();
 					rowData[i][2]=list.get(i).getSex();
@@ -220,10 +225,11 @@ public class SearchManagement extends JFrame implements ActionListener {
 				}
 				System.out.println();
 			}
- 
-        }else {
+
+        }else{
         	Students student = new Students();
 			student = queryUser(num);
+
 			//行设置为1,防止数组越界
 			rowData=new Object[1][column.length];
 			rowData[0][0]=student.getId();
@@ -235,37 +241,38 @@ public class SearchManagement extends JFrame implements ActionListener {
 		}
 		return rowData;
     }
- 
- 
+
+
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e){
+
 		//查询个人
-		if(e.getSource() == searchBtn) {
+		if(e.getSource() == searchBtn){
 				int num = Integer.parseInt(JTNumber.getText());
-				if(num >0) 
+				if(num >0)
 					setTable(num);
 				else
 					JOptionPane.showMessageDialog(null, "输入数据错误！");
 		}
-		
+
 		//查询全部
-		if(e.getSource() == searchAllBtn) {
+		if(e.getSource() == searchAllBtn){
 			JTNumber.setText("0");
 			setTable(0);
 		}
-		
+
 		//重置
-		if(e.getSource() == nextBtn) {
+		if(e.getSource() == nextBtn){
 			JTNumber.setText(null);
 		}
-		
+
 		//取消
-		if(e.getSource() == cancelBtn) {
+		if(e.getSource() == cancelBtn){
 			this.setVisible(false);
 		}
-		
+
 	}
-	
-	
-	
+
+
+
 }
